@@ -1,0 +1,30 @@
+name: Push to S3 Bucket
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  push_to_s3:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install AWS CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y awscli
+      
+      - name: Push file to S3
+        run: |
+          aws s3 cp . s3://airflowdagusgbc/dag/ --recursive --region us-west-2
+        env:
+          AWS_ACCESS_KEY_ID: AKIAS4ZCJIE2XQCOSVFT
+          AWS_SECRET_ACCESS_KEY: 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
+        # env:
+        #   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        #   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        #   AWS_DEFAULT_REGION: your-region
