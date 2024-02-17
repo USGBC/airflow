@@ -3,7 +3,7 @@ name: Push to S3 Bucket
 on:
   push:
     branches:
-      - main
+      - patch-1
 
 jobs:
   push_to_s3:
